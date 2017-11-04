@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!--End <div class="Container" from _Layout.cshtml-->
+</div>
+
+<!-- Slider-->
+<div id="slideshowwrapper">
+    <img id="logolayer" src="~/Images/Global/logo-slogan.png" />
+    <div id="slideshow">
+        <div id="slice1">
+            <img src="~/Images/Home/Barcelona-ES.png">
+        </div>
+        <div id="slice2">
+            <img src="~/Images/Home/Doha-QA.png">
+        </div>
+        <div id="slice3">
+            <img src="~/Images/Home/TaNam-TH.png">
+        </div>
+        <div id="slice4">
+            <img src="~/Images/Home/HongKong-CN.png">
+        </div>
+        <div id="slice5">
+            <img src="~/Images/Home/BigSur-USA.png">
+        </div>
+        <div id="slice6">
+            <img src="~/Images/Home/NewYork-USA.png">
+        </div>
+    </div>
+    <div id="home-icons" class="text-center col-sm-12">
+        <div style="width:300px">
+            <a href="Reviews/Create"><i class="fa fa-pencil-square fa-5x"></i></a><br />
+            <h4>Write</h4>
+        </div>
+        <div style="width:300px">
+            <a href="~/Home/Chat"><i class="fa fa-globe fa-5x"></i></a><br />
+            <h4>Connect</h4>
+        </div>
+        <div style="width:300px">
+            <a href="Reviews/Index"><i class="fa fa-search fa-5x"></i></a><br />
+            <h4>Search</h4>
+        </div>
+        
+    </div>
+</div>
+
+<!-- Popup box prompts user to log in, if user selects a function without logging in -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+                <img src="~/Images/Global/logo.png" style="width:300px" />
+                <h4> We appreciate your contribution!  Please login first. </h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default takeMeToLogin" data-dismiss="modal">Login</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No Thanks</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //Set the function of the bouton which takes youto the login page
+    $(".takeMeToLogin").click(function () {
+        document.location = '@Url.Action("Login","Account")';
+    });
+</script>
+
+<!-- Code to display the Login Prompt inserted here by the controller if indicated-->
+@Html.Raw(ViewBag.showLoginPrompt1)
+@Html.Raw(ViewBag.showLoginPrompt2)
+@Html.Raw(ViewBag.showLoginPrompt3)
+
+<!--Start <div class="Container" from _Layout.cshtml-->
+<div class="container body-content">
+
+
+
+
+@*<div class="carousel-caption">
+    <p><a class="btn btn-lg btn-primary" onclick="location.href='@Url.Action("Index", "Reviews")'" role="button">Explore Countries</a></p>
+</div>*@
+
+

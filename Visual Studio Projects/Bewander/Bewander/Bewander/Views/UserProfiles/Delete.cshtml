@@ -1,0 +1,64 @@
+﻿@model Bewander.Models.UserProfile
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>UserProfile</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.About)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.About)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HomeTown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeTown)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TravelLocations)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TravelLocations)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FavoriteLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FavoriteLocation)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

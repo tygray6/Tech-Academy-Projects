@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Chat";
+}
+
+<div id="chatBackground">
+    <div id="chatHeader">
+        <h3>Connect</h3>
+        Chat with: &nbsp&nbsp&nbsp&nbsp <input type="checkbox" name="all" value="all" checked="checked"/>All &nbsp&nbsp&nbsp&nbsp or &nbsp <input type="text" name="target" placeholder="User Name"/>
+    </div>
+
+    <div id="chatInput">
+        <textarea name="messageInput" id="messageInput" rows="6" cols="80"></textarea>
+    </div>
+
+    <div id="chatButtons">
+        <button id="sendMessage">Send</button>
+        <span style="position:absolute; right:0px;"> @Html.ActionLink("Exit Chat", "Index", "Home")</span>
+    </div>
+
+    <div id="chatConversation">
+        <ul id="conversation"></ul>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="/Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script>
+        $(function(){
+            var senderName = "@ViewData["senderName"]"
+            var chat = $.connection.ChatHub;
+
+            //The client function displays messages received from the hub
+            chat.client.displayMessage = function (senderName, message) {
+               $('#conversation').append('<li><strong>' + $('<div />').text(senderName).html() + '</strong>: ' + $('<div />').text(message).html() + '</li>');
+            };
+
+            // start the connection, then enable the send button
+            $.connection.hub.start().done(function () {
+                $('#conversation').append('<li>Chat connection established.</li>');
+                chat.server.registerConxnId(senderName);
+                $('#sendMessage').click(function () {
+                    if ($('input[name="all"]').is(':checked')) {
+                        chat.server.sendMessage(senderName, $('#messageInput').val());
+                    }
+                    else {
+                        chat.server.sendMessage(senderName, $('#messageInput').val(), $('input[name="target"]').val());
+                    }
+                    // Clear text box and reset focus for next comment.
+                    $('#messageInput').val('').focus();
+                });
+                // Ready to chat: Set initial focus to message input box.
+                $('#messageInput').focus();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,109 @@
+﻿@model Bewander.Models.Review
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Review</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+            @{int loc = Model.Local;
+                switch (loc)
+                {
+                    case 0:
+                        @Html.DisplayName("(Local Reviewer)");
+                        break;
+                    case 1:
+                        @Html.DisplayName("(Traveler)");
+                        break;
+                    default:
+                        @Html.DisplayName("(Other)");
+                        break;
+                }
+             }
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GoogleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GoogleID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePosted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StarRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StarRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CostRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CostRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Flag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Flag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubjectID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubjectID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @{  bool createdNewReview = false;
+        string googleID = Model.GoogleID;
+        @Html.ActionLink("Back to List", "Display", new { googleID, createdNewReview })
+    }
+        | @Html.ActionLink("Edit", "Edit", new { id = Model.ReviewID })
+        | @Html.ActionLink("Delete", "Delete", new { id = Model.ReviewID })
+</p>

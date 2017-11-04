@@ -1,0 +1,116 @@
+﻿@model Bewander.Models.UserProfile
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "UserProfiles", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>UserProfile</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.UserProfileID)
+
+        <div class="form-group">
+            @Html.Label("Profile Picture", new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <input type="file" id="Avatar" class="input-file" name="uploadProfile" accept="image/*" onchange="myFunction()" />
+                @*<p id="demo"></p>*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Cover Photo", new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <input type="file" id="Cover-Photo" class="input-file" name="coverPhoto" accept="image/*" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Album Photos", new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <input type="file" id="Album-Photos" class="input-file" name="uploadPhoto"  accept="image/*" multiple />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.About, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Local of", new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.HomeTown, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HomeTown, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Travel Locations", new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.TravelLocations, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TravelLocations, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Favorite Location", new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.FavoriteLocation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FavoriteLocation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+<script>
+function myFunction(){
+    var x = document.getElementById("Avatar");
+    var txt = "";
+    if ('files' in x) {
+        if (x.files.length == 0) {
+            txt = "Select one or more files.";
+        } else {
+            for (var i = 0; i < x.files.length; i++) {
+                var file = x.files[i];
+                if ('name' in file) {
+                    txt += "name: " + file.name;
+                }
+            }
+        }
+    }
+    else {
+        if (x.value == "") {
+            txt += "Select one or more files.";
+        } else {
+            txt += "The files property is not supported by your browser!";
+            txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead.
+        }
+    }
+    document.getElementById("demo").innerHTML = txt;
+}
+</script>

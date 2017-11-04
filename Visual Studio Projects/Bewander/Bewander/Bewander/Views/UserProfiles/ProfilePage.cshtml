@@ -1,0 +1,403 @@
+﻿@model Bewander.Models.UserProfileViewModel
+@{
+    ViewBag.Title = Html.DisplayFor(model => model.User.FirstName);
+
+    var profileImage = Model.Avatar.FirstOrDefault();
+    var profileURL = "";
+    if (profileImage != null)
+    {
+        profileURL = "data:" + profileImage.ContentType + ";base64," + Convert.ToBase64String(profileImage.Content);
+    }
+    else
+    {
+        profileURL = "~/Images/UserProfiles/no-image.png";
+    }
+
+    var coverPhoto = Model.CoverPhoto.FirstOrDefault();
+    var coverPhotoURL = "";
+    if (coverPhoto != null)
+    {
+        coverPhotoURL = "data:" + coverPhoto.ContentType + ";base64," + Convert.ToBase64String(coverPhoto.Content);
+    }
+}
+
+<!--End Container from _Layout-->
+</div>
+
+<div class="full-container" style="background-image: url(@coverPhotoURL)">
+    <!-- Profile Header-->
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <div id="profile-header">
+                <img src="@profileURL" id="profile-picture" alt="Profile-Picture"/>
+                <h2>@Html.DisplayFor(model => model.User.FirstName) @Html.DisplayFor(model => model.User.LastName)</h2>                            
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Icons -->
+    <div class="row">
+        <div class="col-sm-12 text-center" id="icons-section">
+            <button onclick="toggleContent('content-home')"><i class="fa fa-home fa-3x"></i></button>
+            <button onclick="toggleContent('content-pictures')"><i class="fa fa-picture-o fa-3x"></i></button>
+            <button onclick="toggleContent('content-review')"><i class="fa fa-pencil-square fa-3x"></i></button>
+            <button onclick="toggleContent('content-friends')"><i class="fa fa-users fa-3x"></i></button>
+            <button onclick="toggleContent('content-calender')"><i class="fa fa-calendar fa-3x"></i></button>
+        </div>
+    </div>
+
+
+    <!-- Content -->
+    <div class="row">
+        <div class="col-xs-12" id="content-profile">
+            <!--Home-->
+            <div id="content-home" class="content-section">
+                <h3>About</h3>
+                <p>@Html.DisplayFor(model => model.UserProfile.About)</p>
+                <p><span style="display:inline-block; width:117px; text-align:left">Local of:</span> @Html.DisplayFor(model => model.UserProfile.HomeTown)</p>
+                <p><span style="display:inline-block; width:117px; text-align:left">Favorite Location:</span> @Html.DisplayFor(model => model.UserProfile.FavoriteLocation)</p>
+                <p><span style="display:inline-block; width:117px; text-align:left">Travel Locations:</span> @Html.DisplayFor(model => model.UserProfile.TravelLocations)</p>
+            </div>
+            <!--Pictures-->
+            <div id="content-pictures" class="content-section">
+                <h1>Pictures</h1>
+                <h3>Profile Pictures</h3>
+                @foreach (var item in Model.Avatar)
+                {
+                    var imageURL = "data:" + item.ContentType + ";base64," + Convert.ToBase64String(item.Content);
+                    <img src="@imageURL" class="profile-pictures" alt="@item.FileName" />
+                }
+                <br/>
+                <h3>Album Photos</h3>
+                @foreach (var item in Model.Photos)
+                {
+                    var imageURL = "data:" + item.ContentType + ";base64," + Convert.ToBase64String(item.Content);
+                    <img src="@imageURL" class="profile-pictures" alt="@item.FileName" />
+                }
+                <h3>Cover Photos</h3>
+                @foreach (var item in Model.CoverPhoto)
+                {
+                    var imageURL = "data:" + item.ContentType + ";base64," + Convert.ToBase64String(item.Content);
+                    <img src="@imageURL" class="profile-pictures" alt="@item.FileName" />
+                }
+            </div>
+            <!--Reviews-->            
+            <div id="content-review" class="content-section">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        @foreach (var item in Model.Reviews)
+                        {                     
+                            @Html.HiddenFor(modelItem => item.GoogleID, htmlAttributes: new { @class = "GoogleID" })
+                            @Html.HiddenFor(modelItem => item.ReviewID, htmlAttributes: new { @class = "ReviewID" })
+                            <div class="review-container">
+                                <div class="row">
+                                    <div class="col-sm-8 place-details">
+                                        <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
+                                        <h3 class="place-name"></h3>
+                                        <h4 style="margin-top:-1%;">
+                                            <span class="glyphicon glyphicon-map-marker"></span>Portland, Oregon USA
+                                        </h4>
+                                        <div class="review-body">
+                                            <p>
+                                                <span class="fa fa-quote-left" style="padding-right:5%;"></span>
+                                                @Html.DisplayFor(modelItem => item.Body)
+                                                <span class="fa fa-quote-right" style="padding-left:5%"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-right" id="review-icons">
+                                        @Stars(item.StarRating)
+                                        <br />
+                                        @for (int i = 0; i < item.CostRating; i++)
+                                        {
+                                            <i class="fa fa-usd dollar-icon"></i>
+                                        }
+                                        <br />
+                                        <h5>@Html.DisplayFor(modelItem => item.DatePosted)</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!--Friends-->
+            <div id="content-friends" class="content-section">
+                <h3>Friends</h3>
+            </div>
+            <!--Calender-->
+            <div id="content-calender" class="content-section">
+                <h3>Calender</h3>
+            </div>
+        </div>
+    <!-- End of row -->
+    </div>
+
+
+
+<!--/* End full-contatiner -->
+</div>
+<!--Start Container from _Layout-->
+<div class="container body-content">
+
+    
+
+
+<script>
+
+    var elementPosition = $('#icons-section').offset();
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > elementPosition.top - 52) {
+            $('#icons-section').css({ 'position': 'fixed', 'top': '51px', 'background': 'linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.6))' });
+            $('#content-profile').css({ 'margin-top': '105px' });
+        }
+        else {
+            $('#icons-section').css({ 'position': 'static', 'background': 'rgba(0, 0, 0,.5)' });
+            $('#content-profile').css({ 'margin-top': '0px' });
+        }
+    });
+
+</script>
+
+
+
+
+<script>
+
+    //function GetGoogleID() {
+    //    var googleIDValues = document.getElementsByClassName("GoogleID");
+    //    var reviewIDValues = document.getElementsByClassName("ReviewID");
+    //    var placeName = document.getElementsByClassName("place-name");
+    //    for (var i = 0; i < googleIDValues.length; i++) {
+    //        // GET: GoogleID and ReviewID from each review
+    //        var googleID = googleIDValues[i].value;
+    //        var reviewID = reviewIDValues[i].value;
+    //        console.log(googleID);
+    //        console.log(reviewID);
+
+    //        var placeNameID = "place-name-" + reviewID;
+    //        console.log(placeNameID);
+    //        placeName[i].setAttribute("id", placeNameID);
+
+    //    }
+    //    GetDetails();
+    //}
+
+    //function GetDetails() {
+    //    var googleIDValues = document.getElementsByClassName("GoogleID");
+    //    var reviewIDValues = document.getElementsByClassName("ReviewID");
+    //    var map = new google.maps.Map(document.createElement('div'))
+    //    var service = new google.maps.places.PlacesService(map);
+    //    for (var i = 0; i < reviewIDValues.length; i++) {
+    //        var googleID = googleIDValues[i].value;
+    //        var reviewID = reviewIDValues[i].value;
+    //        console.log(reviewID);
+
+    //        service.getDetails({ placeId: googleID },
+    //        function (place, status) {
+    //            if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //                var placeName = place.name;
+    //                var placeCity = place.address_components[2].long_name;
+    //                var placeState = place.address_components[3].long_name;
+    //                var placeCountry = place.address_components[4].long_name;
+    //                var placeID = place.place_id;
+    //                console.log(placeName);
+    //                console.log(placeID);
+
+    //                var placeNameID = document.getElementById(placeID);
+    //                console.log(placeNameID);
+
+    //            }
+
+    //            //var placeNameID = document.getElementById(placeID);
+    //            //console.log(placeNameID);
+
+    //            //switch (placeNameID) {
+    //            //    case placeID:
+    //            //        placeNameID.innerText = placeName;
+    //            //        console.log(placeNameID);
+    //            //        console.log("It worked!");
+    //            //        break;
+    //            //    default:
+    //            //        console.log("Didn't work");
+    //            //        break;
+    //            //}
+
+    //        });
+    //    }
+    //}
+
+    
+
+
+
+
+
+    //// Use reviewID as h3 element id
+    //function GoogleID() {
+    //    var googleIDValues = document.getElementsByClassName("GoogleID");
+    //    var placeName = document.getElementsByClassName("place-name");
+
+    //    for (var i = 0; i < googleIDValues.length; i++) {
+    //        // GET: Google ID from each review
+    //        var googleID = googleIDValues[i].value;
+    //        console.log(googleID);
+
+    //        // SET: ID for <h3 class="place-name"></h3>
+    //        placeName[i].setAttribute("id", googleID);
+    //        var placeNameID = document.getElementById(googleID);
+
+    //        var map = new google.maps.Map(document.createElement('div'))
+    //        var service = new google.maps.places.PlacesService(map);
+    //        service.getDetails({ placeId: googleID },
+    //        function (place, status) {
+    //            if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //                var placeName = place.name;
+    //                var placeCity = place.address_components[2].long_name;
+    //                var placeState = place.address_components[3].long_name;
+    //                var placeCountry = place.address_components[4].long_name;
+    //                var placeID = place.place_id;
+    //                console.log(placeName);
+    //                console.log(placeID);
+
+    //                var placeNameID = document.getElementById(placeID);
+    //                console.log(placeNameID);
+
+    //                switch (placeNameID) {
+    //                    case placeID:
+    //                            placeNameID.innerText = placeName;
+    //                            console.log(placeNameID);
+    //                            console.log("It worked!");
+    //                        break;
+    //                    default:
+    //                        console.log("Didn't work");
+    //                        break;
+    //                }                 
+    //            }
+    //        });
+            
+    //    }
+
+    //}
+
+    //function PlaceDetails(googleID, mname) {
+    //    var map = new google.maps.Map(document.createElement('div'))
+    //    var service = new google.maps.places.PlacesService(map);
+        
+
+    //    service.getDetails({ placeId: googleID },
+    //        function (place, status, placeID) {
+    //            if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //                var placeName = place.name;
+    //                var placeCity = place.address_components[2].long_name;
+    //                var placeState = place.address_components[3].long_name;
+    //                var placeCountry = place.address_components[4].long_name;
+    //                console.log(placeName);
+    //                console.log(placeID);
+    //        }
+    //    });
+    //}
+
+    //function CreateScriptTags() {
+    //    var googleIDValues = document.getElementsByClassName("GoogleID");
+    //    var placeDetailsElement = document.getElementsByClassName("place-details");
+    //    var placeName = document.getElementsByClassName("place-name");
+
+    //    for (var i = 0; i < googleIDValues.length; i++) {
+    //        var googleID = googleIDValues[i].value;
+
+    //        // Create ID for each review
+    //        var placeDetailsID = "place-details-" + i.toString();
+    //        placeDetailsElement[i].setAttribute("id", placeDetailsID);
+
+    //        var placeName = document.getElementsByClassName("place-name");
+
+    //        var placeNameID = "place-name-" + i.toString();
+    //        placeName[i].setAttribute("id", placeNameID);
+    //        var placeNameId = document.getElementById(placeNameID);
+    //        console.log(placeNameId);
+
+    //        PlaceDetails(googleID);
+    //    }
+
+    //}
+
+    //function PlaceDetails(googleID) {
+    //    var map = new google.maps.Map(document.createElement('div'))
+    //    var service = new google.maps.places.PlacesService(map);
+
+    //    service.getDetails({ placeId: googleID }, function (place, status) {
+    //        if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //            var placeName = place.name;
+    //            var placeCity = place.address_components[2].long_name;
+    //            var placeState = place.address_components[3].long_name;
+    //            var placeCountry = place.address_components[4].long_name;
+    //            console.log(placeName);
+    //            console.log(p);
+
+    //            var placeName = document.getElementsByClassName("place-name");
+
+    //            for (var i = 0; i < placeName.length; i++) {
+    //                var placeNameID = "place-name-" + i.toString();
+    //                placeName[i].setAttribute("id", placeNameID);
+    //                var placeNameId = document.getElementById(placeNameID);
+    //                placeNameId.innerText = placeName;
+    //                console.log(placeNameId);
+    //                console.log(i);
+    //            }
+                
+    //        }
+    //    });
+    //}
+
+
+
+    //window.onload = GetGoogleID;
+</script>
+
+
+@section Scripts {
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI5B2snURiIE8VkeuNYL2Es3ZZf8veRf4&libraries=places"></script>
+}
+
+<!-- C# Methods -->
+
+@helper Stars(int? StarRating)
+{
+switch (StarRating)
+{
+    case 1:
+            <i class="fa fa-star-half-o star-icon"></i>
+        break;
+    case 3:
+        @StarCount(StarRating);
+        break;
+    case 5:
+        @StarCount(StarRating);
+        break;
+    case 7:
+        @StarCount(StarRating);
+        break;
+    case 9:
+        @StarCount(StarRating);
+        break;
+    default:
+        for (int i = 0; i < StarRating; i += 2)
+        {
+            <i class="fa fa-star star-icon"></i>
+        }
+        break;
+}
+
+}
+
+@helper StarCount(int? StarRating)
+{
+for (int i = 0; i < StarRating - 1; i += 2)
+{
+        <i class="fa fa-star star-icon"></i>
+}
+    <i class="fa fa-star-half-o star-icon"></i>
+}

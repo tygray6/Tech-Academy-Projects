@@ -1,0 +1,685 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family: 'Ubuntu', serif;
+}
+
+h5 {
+    font-family: 'Ubuntu', serif;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/*--- Global ---*/
+.navbar-brand {
+    width:140px;
+    padding: 5px;
+    margin-right:20px;
+}
+
+.navbar-inverse {
+    background:rgba(0, 0, 0,.5);
+    /*background: linear-gradient(#7A7A7A, #767676);*/
+    border-bottom: 1px solid #91D0B2;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #62B18B;
+    font-size: 21px;
+    font-weight: 400;
+}
+
+.navbar-inverse 
+.navbar-nav > .open > a, 
+.navbar-inverse .navbar-nav > .open > a:hover, 
+.navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: #62B18B;
+}
+
+.footerLink{
+    padding:15px;
+}
+
+.dropdown-menu > li > a {
+    font-size: 16px;
+}
+
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #4d90fe;
+}
+
+/*--- Changes Size of Glyphicons ---*/
+.gi-2x{font-size: 2em;}
+.gi-3x{font-size: 3em;}
+.gi-4x{font-size: 4em;}
+.gi-5x{font-size: 5em;}
+
+/*--- Home/Index ---*/
+#HeaderPhoto {
+    width:100%;
+}
+
+#slideshowWrapper {
+    width:100%;
+    margin:auto;
+	padding: 0;
+}
+
+#slideshow {
+    width:100%;
+    height:694px;
+    margin-top: -52px;
+}
+
+#slideshow img {
+	width: 100%;
+    margin: auto;
+    height:694px;
+    position:relative;
+}
+
+#slideshow div {display:none;}
+#slideshow #slice1 {display:block;}
+
+#home-icons {
+    background: rgba(0,0,0, .5);
+    color: #91D0B2;
+    padding: 15px 0px 10px 0px;
+    margin-top:-136px;
+    z-index:100;
+    position:relative;
+    border-top: 1px solid #91D0B2;
+    border-bottom: none;
+}
+#home-icons div {
+    display:inline-block;
+}
+
+#home-icons a {
+    color: #91D0B2;
+}
+
+#home-icons i {
+    padding: 0 65px;
+}
+
+
+/*--- Layer that is the logo will not fade in and out. ---*/
+#logolayer{
+    display:block;
+    position:absolute;
+    z-index:1;
+    width:100%
+}
+
+/*--- Account/Register ---*/
+#registerButton {
+    visibility: hidden;
+}
+
+.modal-body {
+    height: 300px;
+    overflow: auto;
+}
+
+/*--- Reviews/Create ---*/
+
+#create-review-form {
+    border: 1px solid #000;
+    border-radius: 10px;
+    width: 80%;
+    margin-left:10%;
+    padding: 30px;
+    background-color: #e7e7e7;
+}
+
+#create-review-btn {
+    width: 190px;
+    height: 70px;
+    font-size: 24px;
+    font-weight:100;
+}
+
+.rateit {
+    display: -moz-inline-box;
+    display: inline-block;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.rateit .rateit-range
+{
+    position: relative;
+    display: -moz-inline-box;
+    display: inline-block;
+    background: url(star.gif);
+    height: 16px;
+    outline: none;
+}
+
+.rateit .rateit-range * {
+    display:block;
+}
+
+/* for IE 6*/
+* html .rateit, * html .rateit .rateit-range
+{
+    display: inline;
+}
+
+/* for IE 7 */
+* + html .rateit, * + html .rateit .rateit-range
+{
+    display: inline;
+}
+
+.rateit .rateit-hover, .rateit .rateit-selected
+{
+    position: absolute;
+    left: 0px;
+}
+
+.rateit .rateit-hover-rtl, .rateit .rateit-selected-rtl
+{
+    left: auto;
+    right: 0px;
+}
+
+.rateit .rateit-hover
+{
+    background: url(star.gif) left -32px;
+}
+
+.rateit .rateit-hover-rtl
+{
+    background-position: right -32px;
+}
+
+.rateit .rateit-selected
+{
+    background: url(star.gif) left -16px;
+}
+
+.rateit .rateit-selected-rtl
+{
+    background-position: right -16px;
+}
+
+.rateit .rateit-preset
+{
+    background: url(star.gif) left -48px;
+}
+
+
+
+.rateit .rateit-preset-rtl
+{
+    background: url(star.gif) left -48px;
+}
+
+
+/*reset*/
+
+.rateit button.rateit-reset
+{
+    background: url(../Images/Reviews/delete.png);
+    width: 128px;
+    height: 128px;
+    display: -moz-inline-box;
+    display: inline-block;
+    outline: none;
+    border:none;
+    padding: 0;
+}
+
+.rateit button.rateit-reset:hover, .rateit button.rateit-reset:focus
+{
+    background-position: 0 -128px;
+}
+
+/*************/
+
+div.bigstars div.rateit-range
+{
+    background: url(../Images/Reviews/star-white32.png);
+    height: 128px;
+}
+ 
+div.bigstars div.rateit-hover
+{
+    background: url(../Images/Reviews/star-gold32.png);
+}
+ 
+div.bigstars div.rateit-selected
+{
+    background: url(../Images/Reviews/star-red32.png);
+}
+ 
+div.bigstars div.rateit-reset
+{
+    background: url(../Images/Reviews/star-grey32.png);
+    width: 128px;
+    height: 128px;
+}
+ 
+div.bigstars div.rateit-reset:hover
+{
+    background: url(../Images/Reviews/star-white32.png);
+}
+
+.iconSize{
+    font-size:30px;
+    margin:10px;
+}
+
+
+/*--- Reviews/Search ---*/
+/* Embedded mapbox iframe and mapbox.js container */
+.container-map {
+    padding-bottom: 5em;
+}
+/* Mapbox.js div*/
+#map {
+    position: relative;
+    height: 500px;
+    width: 673px;
+    border: 1px solid #4d90fe;
+}
+
+.controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+
+.pac-container {
+    font-family: Roboto;
+}
+
+#type-selector {
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+
+/*--- UserProfile/ProfilePage---*/
+.full-container {
+    width: 100%;
+    background-attachment:fixed;
+    background-image: url("../Images/UserProfiles/coverImg.png");
+    background-size:cover;
+    padding:0px;
+    margin:0px;
+    margin-top:-52px;
+    min-height: 650px;
+    z-index: 0;
+}
+
+.full-container .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#profile-picture {
+    width: 190px;
+    height: 190px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    padding: 0;
+    margin-top: 112px;
+}
+
+#profile-header h2 {
+    color: #fff;
+}
+
+#icons-section {
+    background:rgba(0, 0, 0,.5);
+    z-index: 100;
+}
+
+#icons-section button {
+    background-color: transparent;
+    border:none;
+    padding:0;
+}
+
+#icons-section i {
+    margin:10px 15px;
+    color: #d1d1d1;
+}
+
+#icons-section button:focus  {
+    outline:0;
+}
+
+#content-profile {
+    background:rgba(0, 0, 0,.5);
+    color: #fff;
+}
+
+.content-section {
+    display:none;
+    width: 90%;
+}
+
+/*Home Content*/
+#content-home {
+    display:inline;
+}
+
+/*Pictures Content*/
+#content-pictures {
+    display:none;
+}
+
+.profile-pictures {
+    width: 200px;
+    height: 200px;
+    margin: 15px;
+    border: 3px solid #d1d1d1;
+}
+
+/*Review Content*/
+#content-review {
+    display: none;
+}
+
+.review-container {
+    padding-right:15px;
+    padding-left:15px;
+    background:rgba(0,0,0 ,.6);
+    box-shadow:.2em .2em .2em rgba(121,221,170,.3);
+    color:white;
+    margin-bottom:20px;
+    border: 2px solid #62B18B;
+    border-radius: 10px;
+}
+
+    .review-container h2 {
+        text-align:center;
+        color:white;
+    }
+
+    .review-container h3 {
+        margin-top: 10px;
+    }
+
+    .review-body {
+        overflow: auto;
+    }
+
+    .review-body p {
+        padding: 5px 10px;
+    }
+
+.star-icon {
+    color: gold;
+}
+
+.dollar-icon {
+    color: green;
+}
+
+#review-icons {
+    margin-top:10px;
+}
+
+#review-icons i {
+    padding: 5px 0;
+    font-size:1.5em;
+}
+
+/*Friends Content*/
+#content-friends {
+    display:none;
+}
+
+/*Calender Content*/
+#content-calender {
+    display:none;
+}
+
+.btn-ext-login {
+    color:#668CFF;
+    background-color:#C5EEC5;
+    height:60px;
+    width:60px;
+    margin: 0px 15px 15px 0px;
+    border-radius:8px
+}
+
+/* styling for the Search Reviews view*/
+#map{
+    width:95%;
+}
+
+#searchReviewsMain{
+    position:absolute;
+    width:72%;
+    left:8px;
+    background-color:#FFFFFF;
+}
+
+#searchReviewsSide{
+    position:absolute;
+    right:5px;
+    width:28%;
+    height:563px;
+    background-color:#FFE6B3;
+    border: 1px solid #4D90FE;
+}
+
+#searchReviewsImageFrame{
+    position:absolute;
+    left:0px;
+    width:100%;
+    height:160px;
+    opacity:0.9; 
+    overflow:hidden;
+}
+
+#searchReviewsImage{
+    width:100%;
+}
+
+#summaries{
+    position:absolute;
+    top:170px;
+    margin:10px;
+}
+
+.summaryItem{
+    height:12px;
+}
+
+.summaryItemTagline{
+    height:15px;
+    font-style: italic;
+    text-shadow:1px 1px 2px sienna;
+}
+.summarySpacer{
+    height:10px;
+}
+
+/* Styling for the accordions in the FAQ View*/
+/* Style the FAQ buttonsl */
+button.accordion {
+    background-color: #C5EEC5;
+    color: #668CFF;
+    cursor: pointer;
+    border-radius:10px;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+/* Change button background color if clicked, and on hover */
+button.accordion.active, button.accordion:hover {
+    background-color: #B4DDB4;
+}
+
+/* Style the dropdown panel.*/
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.4s ease-in-out;
+    opacity: 0;
+}
+
+/* The "show" class is added to the accordion panel when the user clicks on one of the buttons. This will show the panel content */
+div.panel.show {
+    opacity: 1;
+    max-height: 500px; /* Whatever you like, as long as its more than the height of the content (on all screen sizes) */
+}
+
+#chatBackground{
+    height: 100%;
+    width:105%;
+    margin-left:-3%;
+    background-image:url('../Images/Home/chatting.jpg');
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+}
+
+
+#chatHeader{
+    position:relative;
+    left:20px;
+    margin:10px;
+}
+
+#chatInput{
+    position:relative;
+    left:20px;
+    width:585px;
+    height:128px;
+    margin:10px;
+    background-color:white;
+    border: 1px solid #4D90FE;
+
+}
+
+#chatButtons{
+    position:relative;
+    width:585px;
+    left:20px;
+    margin:10px;
+}
+
+#chatConversation{
+    position:relative;
+    left:20px;
+    width:585px;
+    height:280px;
+    margin:10px;
+    padding:10px;
+    background-color:#FFFFFF;
+    border: 1px solid #4D90FE;
+    overflow:auto;
+
+}
+
+
+
+/*---UserProfile/Edit---*/
+/*.input-file {
+  visibility: hidden;
+  width: 0;
+  position: relative;
+}
+.input-file::before {
+  content: 'Upload';
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 500;
+  font-size: 10pt;
+  visibility: visible;
+  position: absolute;
+}
+
+.input-file:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}*/
+
+
+
+/*### Small ###*/
+@media (min-width: 768px) {
+    #icons-section {
+        padding: 20px 0;
+    }
+
+    #icons-section i {
+        padding:0 15px;
+    }
+}
+
+/*### Medium ###*/
+@media (min-width: 992px) {
+    
+}
+
+/*### Large ###*/
+@media (min-width: 1200px) {
+    
+}

@@ -1,0 +1,183 @@
+﻿@model Bewander.Models.ReviewViewModel
+@using Bewander.Models
+
+@{
+    ViewBag.Title = "Write a Review";
+}
+
+<h2>Write a Review</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" id="create-review-form">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="rateit bigstars" data-rateit-starwidth="128" data-rateit-starheight="128" id="rateit5" data-rateit-min="0"></div>
+                <div class="center">
+                    <p id="value5" style="text-align:center;"></p>
+                    @*<p id="hover5" style="text-align:center;"></p>*@
+                </div>
+                <div style="visibility:hidden">@Html.TextBoxFor(model => model.Review.StarRating, new { id = "StarRating" })</div>
+            </div>
+        </div>
+
+        <!-- Autocomplete -->
+        <div class="form-group">
+            <div class="col-md-4 locationField">
+                @Html.Editor("Search", new { htmlAttributes = new { @class = "form-control", id = "autocomplete", onFocus = "geolocate()", placeholder = "Location", type = "text" } })
+            </div>
+        </div>
+
+        <!-- GoogleID (hidden) -->
+        @Html.HiddenFor(model => model.Review.GoogleID, new { id = "GoogleID" })
+        <!-- Place Name (hidden) -->
+        @Html.HiddenFor(model => model.Place.Name, new { id = "PlaceName" })
+        <!-- Street Number (hidden) -->
+        @Html.HiddenFor(model => model.Place.StreetNumber, new { id = "street_number" })
+        <!-- Route (hidden) -->
+        @Html.HiddenFor(model => model.Place.Route, new { id = "route" })
+        <!-- City (hidden) -->
+        @Html.HiddenFor(model => model.City.Name, new { id = "locality" })
+        <!-- City (hidden) -->
+        @Html.HiddenFor(model => model.City.Name, new { id = "postal_town" })
+        <!-- State (hidden) -->
+        @Html.HiddenFor(model => model.State.Name, new { id = "administrative_area_level_1" })
+        <!-- Country (hidden) -->
+        @Html.HiddenFor(model => model.Country.Name, new { id = "country" })
+        <!-- Postal Code (hidden) -->
+        @Html.HiddenFor(model => model.Place.PostalCode, new { id = "postal_code" })
+        <!-- Lat (hidden) -->
+        @Html.HiddenFor(model => model.Place.Lat, new { id = "lat" })
+        <!-- Lng (hidden) -->
+        @Html.HiddenFor(model => model.Place.Lng, new { id = "lng" })
+        <!-- Website (hidden) -->
+        @Html.HiddenFor(model => model.Place.Website, new { id = "website" })
+        <!-- Hours of Operation (hidden) -->
+        <div style="display: none;">@Html.EditorFor(model => model.Place.Hours, new { id = "weekday_text" })</div>
+
+
+        <!-- StarRating (hidden) -->
+        @Html.HiddenFor(model => model.Review.StarRating)
+
+        <!-- Title -->
+        <div class="row form-group">
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Review.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Headline" } })
+                @Html.ValidationMessageFor(model => model.Review.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Body/Icons -->
+        <div class="row form-group">
+            <!-- Body -->
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Review.Body, new { htmlAttributes = new { @style = "max-width:100%; height:200px;", @placeholder = "Tell the world...", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Review.Body, "", new { @class = "text-danger" })
+            </div>
+            <!-- Icons -->
+            @*<div class="col-md-1">
+                    <i class="iconSize fa fa-camera" title="Sorry, this feature is not available at this moment."></i>
+                    <i class="iconSize fa fa-calendar" title="Sorry, this feature is not available at this moment."></i>
+                    <i class="iconSize fa fa-money" title="Sorry, this feature is not available at this moment."></i>
+                    <i class="iconSize fa fa-language" title="Sorry, this feature is not available at this moment."></i>
+                </div>*@
+        </div>
+
+        <div class="row">
+
+            <!-- Are you a local? -->
+            @{ var listReviewerType = new List<Object> {
+                  new { Text = "Local Reviewer", Value=0 },
+                  new { Text = "Traveler", Value=1 },
+                  new { Text = "Other", Value=2 }
+               };
+            }
+
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.Review.Local, new SelectList(listReviewerType, "Value", "Text"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Review.Local, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- Cost Rating -->
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Review.CostRating, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cost Rating", max = 5, min = 0 } })
+                @Html.ValidationMessageFor(model => model.Review.CostRating, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- Subject List-->
+            @{var listItems = new List<Object> {
+                  new { Text = "Good Eats", Value=0 },
+                  new { Text = "Safe Stays", Value=1 },
+                  new { Text = "Cool Sites", Value=2 },
+                  new { Text = "Fun Times", Value=3 },
+                  new { Text = "Legit Business", Value=4 },
+                  new { Text = "Other", Value=5 }
+              };
+            }
+
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.Review.SubjectID, new SelectList(listItems, "Value", "Text"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Review.SubjectID, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- Submit Button-->
+            <div class="col-md-3">
+                <input type="submit" value="Post it!" class="btn btn-default" name="Create" id="create-review-btn" />
+            </div>
+
+
+            <!--*/ End of Row -->
+        </div>
+
+
+    </div>
+
+    <!--  If not logged in, Login Prompt pop-up box -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            </div>
+                            <div class="modal-body">
+                                <img src="~/Images/Global/logo.png" style="width:300px" />
+                                <h4> We appreciate your contribution!  Please login to create a review. </h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default takeMeToLogin" data-dismiss="modal">Login</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    <script>
+        //Set the function of the button which takes youto the login page
+        $(".takeMeToLogin").click(function () {
+            document.location = '@Url.Action("Login","Account")';
+        });
+    </script>
+     <!-- Code to display the Login Prompt inserted here by the controller -->
+                @Html.Raw(ViewBag.showLoginPrompt1)
+                @Html.Raw(ViewBag.showLoginPrompt2)
+                @Html.Raw(ViewBag.showLoginPrompt3)
+
+}
+@section autocomplete {
+    <script src="/Scripts/Custom/GoogleAutoComplete.js"></script>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/stars")
+}
+<script>
+
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI5B2snURiIE8VkeuNYL2Es3ZZf8veRf4&libraries=places&callback=initAutocomplete" async defer></script>
+
